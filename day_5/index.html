@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>josiahArt</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Pacifico&display=swap" rel="stylesheet">
+</head>
+<body>
+
+
+<header>
+    <div class="logo">josiah<span>Art</span></div>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#contact">Contact</a>
+        <button class="theme-btn" onclick="toggleTheme()">🌙</button>
+    </nav>
+</header>
+
+
+<section class="hero" id="home">
+    <div class="hero-text">
+        <h1>Creative Minds<br>Grow Beautiful Ideas</h1>
+        <p>Where art, imagination, and calm design come together.</p>
+        <button onclick="scrollToSection('gallery')">Explore Art</button>
+    </div>
+    <div class="hero-img">
+        <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b">
+    </div>
+</section>
+
+
+<section class="about" id="about">
+    <h2>About josiahArt</h2>
+    <p>
+        josiahArt is a creative studio inspired by soft visuals, calm moods,
+        and meaningful design. Every artwork tells a story.
+    </p>
+    <button class="outline">Learn More</button>
+</section>
+
+
+<section class="services" id="services">
+    <h2>What I Do</h2>
+    <div class="service-box">
+        <div class="card">🎨 Digital Art</div>
+        <div class="card">📱 UI Design</div>
+        <div class="card">🖌 Cute Illustrations</div>
+    </div>
+</section>
+
+<section class="gallery" id="gallery">
+    <h2>Art Gallery</h2>
+    <div class="gallery-grid">
+        <img src="https://picsum.photos/300/300?1">
+        <img src="https://picsum.photos/300/300?2">
+        <img src="https://picsum.photos/300/300?3">
+        <img src="https://picsum.photos/300/300?4">
+    </div>
+</section>
+
+
+<section class="cta">
+    <h2>Let’s Create Something Beautiful ✨</h2>
+    <button onclick="alert('Welcome to josiahArt 🎨')">Start Now</button>
+</section>
+
+
+<section class="contact" id="contact">
+    <h2>Contact Me</h2>
+    <form onsubmit="submitForm(event)">
+        <input type="text" id="name" placeholder="Your Name">
+        <input type="email" id="email" placeholder="Your Email">
+        <textarea id="message" placeholder="Your Message"></textarea>
+        <button type="submit">Send Message</button>
+    </form>
+</section>
+
+
+<footer>
+    <p>© 2025 josiahArt | Designed with ❤️</p>
+</footer>
+
+
+<script>
+function scrollToSection(id) {
+    document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+}
+
+function toggleTheme() {
+    document.body.classList.toggle("dark");
+}
+
+function submitForm(event) {
+    event.preventDefault();
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+
+    if(name === "" || email === "") {
+        alert("Please fill all fields ✏️");
+    } else {
+        alert("Message sent successfully 💌");
+    }
+}
+</script>
+
+</body>
+</html>
