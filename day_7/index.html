@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Animated Sum Card</title>
+
+<style>
+    body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .card {
+        background: #fff;
+        width: 350px;
+        padding: 25px;
+        border-radius: 16px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+        text-align: center;
+        animation: fadeIn 0.8s ease;
+    }
+
+    h2 {
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+        outline: none;
+        transition: 0.3s;
+        margin-left: -10px;
+    }
+
+    input:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 5px rgba(102,126,234,0.5);
+    }
+
+    button {
+        margin-top: 15px;
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 8px;
+        background: #667eea;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background: #5a67d8;
+        transform: translateY(-2px);
+    }
+
+    .result {
+        margin-top: 20px;
+        font-size: 22px;
+        font-weight: bold;
+        color: #764ba2;
+        opacity: 0;
+        transform: scale(0.8);
+        transition: 0.4s ease;
+    }
+
+    .result.show {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h2>Sum Calculator</h2>
+    <input type="text" id="numInput" placeholder="10, 20, 30">
+    <button onclick="calculateSum()">Calculate</button>
+    <div id="result" class="result"></div>
+</div>
+
+<script>
+function calculateSum() {
+    let input = document.getElementById("numInput").value;
+
+    let numbers = input
+        .split(",")
+        .map(n => n.trim())
+        .filter(n => n !== "")
+        .map(n => Number(n))
+        .filter(n => !isNaN(n));
+
+    //let sum = numbers.reduce((a, b) => a + b, 0); it is easy way make sum
+    let sum = 0;
+    for (let i = 0; i < numbers.length; i++) {
+        sum += numbers[i];
+    }
+
+    let result = document.getElementById("result");
+    result.textContent = "Sum: " + sum;
+    result.classList.add("show");
+}
+</script>
+
+</body>
+</html>
