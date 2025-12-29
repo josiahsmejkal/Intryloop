@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Array Sum</title>
+
+<style>
+    body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .card {
+        background: #fff;
+        width: 350px;
+        padding: 25px;
+        border-radius: 16px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+        text-align: center;
+        animation: fadeIn 0.8s ease;
+    }
+
+    h2 {
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+        outline: none;
+        transition: 0.3s;
+        margin-left: -10px;
+    }
+
+    input:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 5px rgba(102,126,234,0.5);
+    }
+
+    button {
+        margin-top: 15px;
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 8px;
+        background: #667eea;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background: #5a67d8;
+        transform: translateY(-2px);
+    }
+
+    .result {
+        margin-top: 20px;
+        background: #f7fafc;
+        border-radius: 8px;
+        padding: 12px;
+        font-size: 16px;
+        color: #333;
+        opacity: 0;
+        transform: scale(0.98);
+        transition: 0.25s ease;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+        text-align: left;
+    }
+
+    .result.show {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .stats div {
+        margin: 8px 0;
+    }
+
+    .stats strong {
+        color: #333;
+    }
+
+    .stats span {
+        color: #667eea;
+        float: right;
+        font-weight: 700;
+    }
+
+    .error {
+        color: #e53e3e;
+        font-weight: 600;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h2>Number Analyzer</h2>
+    <input type="text" id="numInput" placeholder="15, 42, 8, 23, 56" aria-label="Numbers separated by commas">
+    <button id="analyzeBtn">Analyze</button>
+    <div id="resultCard" class="result">
+        <div class="stats" id="stats" aria-live="polite" style="display:none">
+            <div><strong>Sum:</strong> <span id="sum">—</span></div>
+            <div><strong>Average:</strong> <span id="avg">—</span></div>
+            <div><strong>Largest Number:</strong> <span id="max">—</span></div>
+            <div><strong>Smallest Number:</strong> <span id="min">—</span></div>
+        </div>
+        <div id="error" class="error" style="display:none;margin-top:10px"></div>
+    </div>
+</div>
+
+<script>
+document.getElementById("analyzeBtn").addEventListener("click", analyze);
+document.getElementById("numInput").addEventListener("keydown", function(e){ if (e.key === 'Enter') analyze(); });
+
+function analyze() {
+    const input = document.getElementById("numInput").value;
+    const errorEl = document.getElementById("error");
+    const statsEl = document.getElementById("stats");
+
+    errorEl.style.display = "none";
+    statsEl.style.display = "none";
+
+    const nums = input
+        .split(",")
+        .map(s => s.trim())
+        .filter(s => s !== "")
+        .map(s => Number(s))
+        .filter(n => !isNaN(n));
+
+    if (nums.length === 0) {
+        errorEl.textContent = "Please enter one or more numbers separated by commas.";
+        errorEl.style.display = "block";
+        document.getElementById("resultCard").classList.remove("show");
+        return;
+    }
+
+    const sum = nums.reduce((a,b)=>a+b,0);
+    const avg = sum / nums.length;
+    const max = Math.max(...nums);
+    const min = Math.min(...nums);
+
+    document.getElementById("sum").textContent = sum;
+    document.getElementById("avg").textContent = Math.round((avg + Number.EPSILON) * 10)/10;
+    document.getElementById("max").textContent = max;
+    document.getElementById("min").textContent = min;
+
+    statsEl.style.display = "block";
+    document.getElementById("resultCard").classList.add("show");
+}
+</script>
+
+</body>
+</html>
